@@ -1,99 +1,88 @@
-import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Date;
 
-public class AIChatbot {
+public class AIChatbot extends JFrame implements ActionListener {
 
-    public static void main(String[] args) {
+    JTextField inputField;
+    JTextArea chatArea;
+    JButton sendButton;
 
-        Scanner sc = new Scanner(System.in);
+    AIChatbot() {
 
-        System.out.println("================================");
-        System.out.println("        JAVA AI CHATBOT");
-        System.out.println("================================");
-        System.out.println("Type 'bye' to exit.\n");
+        setTitle("AI Chatbot");
+        setSize(600, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
 
-        while (true) {
+        chatArea = new JTextArea(20, 45);
+        chatArea.setEditable(false);
 
-            System.out.print("You: ");
-            String input = sc.nextLine().toLowerCase();
+        inputField = new JTextField(30);
 
-            // Exit
-            if (input.equals("bye")) {
-                System.out.println("Bot: Goodbye! Have a nice day.");
-                break;
-            }
+        sendButton = new JButton("Send");
 
-            // Greetings
-            else if (input.contains("hello") || input.contains("hi")) {
-                System.out.println("Bot: Hello! Welcome to the chatbot.");
-            }
+        add(new JScrollPane(chatArea));
+        add(inputField);
+        add(sendButton);
 
-            // Name
-            else if (input.contains("your name")) {
-                System.out.println("Bot: My name is Java AI Chatbot.");
-            }
+        sendButton.addActionListener(this);
 
-            // How are you
-            else if (input.contains("how are you")) {
-                System.out.println("Bot: I am doing great!");
-            }
+        setVisible(true);
+    }
 
-            // College
-            else if (input.contains("college")) {
-                System.out.println("Bot: I can help with basic college information.");
-            }
+    public void actionPerformed(ActionEvent e) {
 
-            // Java
-            else if (input.contains("java")) {
-                System.out.println("Bot: Java is a powerful object-oriented programming language.");
-            }
+        String input = inputField.getText().toLowerCase();
 
-            // Internship
-            else if (input.contains("internship")) {
-                System.out.println("Bot: Internships help students gain practical experience.");
-            }
+        chatArea.append("You: " + input + "\n");
 
-            // Hotel rooms
-            else if (input.contains("room")) {
-                System.out.println("Bot: Available rooms are Standard, Deluxe and Suite.");
-            }
+        if (input.contains("hello") || input.contains("hi")) {
 
-            // Price
-            else if (input.contains("price")) {
-                System.out.println("Bot: Room prices start from 2000 rupees.");
-            }
-
-            // Booking
-            else if (input.contains("book")) {
-                System.out.println("Bot: You can book rooms through the hotel reservation system.");
-            }
-
-            // Food
-            else if (input.contains("food")) {
-                System.out.println("Bot: The hotel provides breakfast, lunch and dinner.");
-            }
-
-            // Time
-            else if (input.contains("time")) {
-                Date d = new Date();
-                System.out.println("Bot: Current time is " + d);
-            }
-
-            // Thank you
-            else if (input.contains("thank")) {
-                System.out.println("Bot: You're welcome!");
-            }
-
-            // Help
-            else if (input.contains("help")) {
-                System.out.println("Bot: Try asking about rooms, booking, food, java, internship or price.");
-            }
-
-            // Default
-            else {
-                System.out.println("Bot: Sorry, I don't understand that.");
-            }
+            chatArea.append("Bot: Hello!\n\n");
         }
 
-        sc.close();
+        else if (input.contains("your name")) {
+
+            chatArea.append(
+                    "Bot: I am Java AI Chatbot.\n\n");
+        }
+
+        else if (input.contains("time")) {
+
+            chatArea.append(
+                    "Bot: Current time is "
+                    + new Date() + "\n\n");
+        }
+
+        else if (input.contains("java")) {
+
+            chatArea.append(
+                    "Bot: Java is an object-oriented programming language.\n\n");
+        }
+
+        else if (input.contains("help")) {
+
+            chatArea.append(
+                    "Bot: Ask me about java, time or greetings.\n\n");
+        }
+
+        else if (input.contains("bye")) {
+
+            chatArea.append("Bot: Goodbye!\n\n");
+        }
+
+        else {
+
+            chatArea.append(
+                    "Bot: Sorry, I don't understand.\n\n");
+        }
+
+        inputField.setText("");
+    }
+
+    public static void main(String[] args) {
+        new AIChatbot();
     }
 }
